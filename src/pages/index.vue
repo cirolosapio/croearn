@@ -19,16 +19,68 @@
       <n-radio v-for="p in periods" :key="p" :value="p">{{ p }}</n-radio>
     </n-radio-group>
 
-    <n-divider>EARN</n-divider>
-    <div text-center>
-      <!--
-        <div>amount: {{ amount }}</div>
-        <div>card: {{ card }}</div>
-        <div>coin: {{ coin }}</div>
-        <div>period: {{ period }}</div>
-        <div>{{ value }}</div>
-      -->
+    <n-divider>
+      {{ coin }}
+      EARN -
       <n-number-animation ref="numberAnimationInstRef" :duration="3000" :precision="2" :from="from" :to="to" />%
+    </n-divider>
+    <div text-center>
+      <n-table size="small">
+        <thead>
+          <tr>
+            <th />
+            <th w20><div text-center>%</div></th>
+            <th w20><div text-center>€</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DAY</td>
+            <td text-center>
+              +{{ (value / 365).toFixed(2) }}
+            </td>
+            <td text-center>
+              +{{ (amount * value / 100 / 365).toFixed(2) }}
+            </td>
+          </tr>
+          <tr>
+            <td>WEEK</td>
+            <td text-center>
+              +{{ (value / 52).toFixed(2) }}
+            </td>
+            <td text-center>
+              +{{ (amount * value / 100 / 52).toFixed(2) }}
+            </td>
+          </tr>
+          <tr>
+            <td>MONTH</td>
+            <td text-center>
+              +{{ (value / 12).toFixed(2) }}
+            </td>
+            <td text-center>
+              +{{ (amount * value / 100 / 12).toFixed(2) }}
+            </td>
+          </tr>
+          <tr>
+            <td>3 MONTHS</td>
+            <td text-center>
+              +{{ (value / 4).toFixed(2) }}
+            </td>
+            <td text-center>
+              +{{ (amount * value / 100 / 4).toFixed(2) }}
+            </td>
+          </tr>
+          <tr>
+            <td>YEAR</td>
+            <td text-center>
+              +{{ value.toFixed(2) }}
+            </td>
+            <td text-center>
+              +{{ (amount * value / 100).toFixed(2) }}
+            </td>
+          </tr>
+        </tbody>
+      </n-table>
     </div>
   </div>
 </template>
@@ -100,16 +152,16 @@ const percents: Record<Coin, Record<Card, Record<Period, number>>> = {
   },
 }
 
-const amount = ref<number>()
+const amount = ref<number>(5000)
 const coin = ref<Coin>('USDC')
 const card = ref<Card>('BLUE-RED')
-const period = ref<Period>('FLEXIBLE')
+const period = ref<Period>('3 MONTHS')
 
 const value = computed(() => percents[coin.value][card.value][period.value])
 
 const numberAnimationInstRef = ref<NumberAnimationInst | null>(null)
-const from = ref<number>(1.5)
-const to = ref<number>(1.5)
+const from = ref<number>(percents[coin.value][card.value][period.value])
+const to = ref<number>(percents[coin.value][card.value][period.value])
 watch(
   value,
   (current, older) => {

@@ -19,6 +19,7 @@ declare module 'vue' {
     NRadio: typeof import('naive-ui')['NRadio']
     NRadioGroup: typeof import('naive-ui')['NRadioGroup']
     NSpin: typeof import('naive-ui')['NSpin']
+    NTable: typeof import('naive-ui')['NTable']
     NTooltip: typeof import('naive-ui')['NTooltip']
     PwaNotification: typeof import('./src/components/PwaNotification.vue')['default']
     TheFooter: typeof import('./src/components/layout/TheFooter.vue')['default']
