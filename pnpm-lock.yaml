@@ -21,12 +21,14 @@ specifiers:
   vite-plugin-pwa: ^0.11.13
   vitest: ^0.8.1
   vue: ^3.2.31
+  vue-gtag: ^2.0.1
   vue-router: ^4.0.14
   vue-tsc: ^0.33.9
 
 dependencies:
   '@vueuse/core': 8.2.3_vue@3.2.31
   vue: 3.2.31
+  vue-gtag: 2.0.1_vue@3.2.31
   vue-router: 4.0.14_vue@3.2.31
 
 devDependencies:
@@ -5426,6 +5428,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-gtag/2.0.1_vue@3.2.31:
+    resolution: {integrity: sha512-aM4A58FVL0wV2ptYi+xzAjeg+pQVRyUcfBc5UkXAwQrR4t3WBhor50Izp2I+3Oo7+l+vWJ7u78DGcNzReb8S/A==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.2.31
+    dev: false
 
   /vue-router/4.0.14_vue@3.2.31:
     resolution: {integrity: sha512-wAO6zF9zxA3u+7AkMPqw9LjoUCjSxfFvINQj3E/DceTt6uEz1XZLraDhdg2EYmvVwTBSGlLYsUw8bDmx0754Mw==}

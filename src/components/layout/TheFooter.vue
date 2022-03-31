@@ -14,7 +14,7 @@
         {{ isDark ? 'Tema Chiaro' : 'Tema Scuro' }}
       </n-tooltip>
 
-      <n-button href="https://github.com/heartbeatLV/croearn" text circle size="large" rel="noopener noreferrer" target="_blank">
+      <n-button href="https://github.com/heartbeatLV/croearn" tag="a" text circle size="large" rel="noopener noreferrer" target="_blank">
         <template #icon>
           <centered-icon i-carbon-logo-github />
         </template>

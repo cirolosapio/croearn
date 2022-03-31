@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from 'virtual:generated-pages'
+import type { PluginOptions } from 'vue-gtag'
+import VueGtag from 'vue-gtag'
 import App from './App.vue'
 
 import '@unocss/reset/tailwind.css'
@@ -13,6 +15,13 @@ const router = createRouter({
   routes,
 })
 
-createApp(App)
+const app = createApp(App)
   .use(router)
-  .mount('#app')
+
+import.meta.env.PROD && app.use(VueGtag, {
+  config: { id: 'UA-126520117-3' },
+  appName: 'CroEarn',
+  pageTrackerScreenviewEnabled: true,
+} as PluginOptions, router)
+
+app.mount('#app')
