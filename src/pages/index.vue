@@ -35,10 +35,7 @@
 
 <script setup lang="ts">
 import type { NumberAnimationInst } from 'naive-ui'
-
-type Coin = 'CRO' | 'BTC'| 'USDC'| 'USDT'| 'ETH' | 'DOT'| 'MATIC' | 'AVAX'
-type Card = 'BLUE-RED' | 'GREEN-ABOVE'
-type Period = 'FLEXIBLE'| '1 MONTH' | '3 MONTHS'
+import type { Card, Coin, Period } from '~/types'
 
 const coins: Coin[] = ['USDC', 'USDT', 'BTC', 'ETH', 'DOT', 'MATIC', 'AVAX']
 const cards: Card[] = ['BLUE-RED', 'GREEN-ABOVE']
