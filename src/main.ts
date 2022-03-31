@@ -19,7 +19,7 @@ const app = createApp(App)
   .use(router)
 
 import.meta.env.PROD && app.use(VueGtag, {
-  config: { id: 'UA-126520117-3' },
+  config: { id: 'G-N9V66H2JLH' },
   appName: 'CroEarn',
   pageTrackerScreenviewEnabled: true,
 } as PluginOptions, router)
