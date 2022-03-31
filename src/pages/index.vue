@@ -10,9 +10,9 @@
     </n-radio-group>
 
     <n-divider>COIN</n-divider>
-    <n-radio-group v-model:value="coin" flex justify-around name="coin">
-      <n-radio v-for="c2 in coins" :key="c2" :value="c2">{{ c2 }}</n-radio>
-    </n-radio-group>
+    <div overflow-x-auto flex space-x-8 p4>
+      <img v-for="c1 in coins" :key="c1" :class="{ 'transform scale-175': c1 === coin }" style="height: 30px" :src="`/coins/${c1.toLowerCase()}.png`" @click="coin = c1" />
+    </div>
 
     <n-divider>PERIODO</n-divider>
     <n-radio-group v-model:value="period" flex justify-around name="period">
@@ -37,7 +37,7 @@
 import type { NumberAnimationInst } from 'naive-ui'
 import type { Card, Coin, Period } from '~/types'
 
-const coins: Coin[] = ['USDC', 'USDT', 'BTC', 'ETH', 'DOT', 'MATIC', 'AVAX']
+const coins: Coin[] = ['USDC', 'USDT', 'BTC', 'ETH', 'DOT', 'MATIC', 'AVAX', 'LUNA', 'EGLD', 'ATOM', 'SOL', 'ONE', 'FLOW']
 const cards: Card[] = ['BLUE-RED', 'GREEN-ABOVE']
 const periods: Period[] = ['FLEXIBLE', '1 MONTH', '3 MONTHS']
 
@@ -45,6 +45,22 @@ const percents: Record<Coin, Record<Card, Record<Period, number>>> = {
   CRO: {
     'BLUE-RED': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
     'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
+  },
+  LUNA: {
+    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 2.5, '3 MONTHS': 4 },
+    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 3.5, '3 MONTHS': 5 },
+  },
+  EGLD: {
+    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 2.5, '3 MONTHS': 4 },
+    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 3.5, '3 MONTHS': 5 },
+  },
+  ATOM: {
+    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 2.5, '3 MONTHS': 4 },
+    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 3.5, '3 MONTHS': 5 },
+  },
+  SOL: {
+    'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 3 },
+    'GREEN-ABOVE': { 'FLEXIBLE': 1.5, '1 MONTH': 3, '3 MONTHS': 4.5 },
   },
   AVAX: {
     'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
@@ -73,6 +89,14 @@ const percents: Record<Coin, Record<Card, Record<Period, number>>> = {
   MATIC: {
     'BLUE-RED': { 'FLEXIBLE': 6, '1 MONTH': 8, '3 MONTHS': 10 },
     'GREEN-ABOVE': { 'FLEXIBLE': 8, '1 MONTH': 10, '3 MONTHS': 12 },
+  },
+  ONE: {
+    'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
+    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
+  },
+  FLOW: {
+    'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
+    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
   },
 }
 
