@@ -1,0 +1,35 @@
+{
+  "params": {
+    "icon": "dice.png",
+    "themeColor": "061121",
+    "quality": "12",
+    "skipTrim": true,
+    "padding": [
+      0,
+      30
+    ]
+  },
+  "assets": [
+    {
+      "generator": "png",
+      "name": "icon-{size}x{size}.png",
+      "folder": "dice",
+      "background": true,
+      "sizes": [
+        192,
+        512
+      ]
+    },
+    {
+      "generator": "ico",
+      "name": "favicon.ico",
+      "folder": "dice"
+    },
+    {
+      "generator": "svg",
+      "name": "safari-pinned-tab.svg",
+      "background": true,
+      "folder": "dice"
+    }
+  ]
+}
