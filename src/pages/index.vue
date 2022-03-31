@@ -2,81 +2,101 @@
   <div p2 h-full flex flex-col>
     <img src="/cards/all.png" alt="" />
 
-    <n-input-number v-model:value="amount" placeholder="Importo" />
+    <n-input-number v-model:value="amount" :step="500" placeholder="AMOUNT">
+      <template #prefix>€</template>
+    </n-input-number>
 
-    <n-divider>CARTA</n-divider>
+    <n-divider>CARD</n-divider>
     <n-radio-group v-model:value="card" flex justify-around name="card">
       <n-radio v-for="c1 in cards" :key="c1" :value="c1">{{ c1 }}</n-radio>
     </n-radio-group>
 
     <n-divider>COIN</n-divider>
-    <div overflow-x-auto flex space-x-8 p4>
-      <img v-for="c1 in coins" :key="c1" :class="{ 'transform scale-175': c1 === coin }" style="height: 30px" :src="`/coins/${c1.toLowerCase()}.png`" @click="coin = c1" />
+    <div overflow-x-auto pb6 pt3 px3>
+      <div flex space-x-8>
+        <img v-for="c1 in coins" :key="c1" transition duration-300 :class="{ 'scale-160': c1 === coin }" style="height: 30px" :src="`/coins/${c1.toLowerCase()}.png`" @click="coin = c1" />
+      </div>
     </div>
 
-    <n-divider>PERIODO</n-divider>
+    <n-divider>TERM</n-divider>
     <n-radio-group v-model:value="period" flex justify-around name="period">
       <n-radio v-for="p in periods" :key="p" :value="p">{{ p }}</n-radio>
     </n-radio-group>
 
     <n-divider>
       {{ coin }}
-      EARN -
+      - EARN -
       <n-number-animation ref="numberAnimationInstRef" :duration="3000" :precision="2" :from="from" :to="to" />%
     </n-divider>
     <div text-center>
       <n-table size="small">
         <thead>
           <tr>
-            <th />
-            <th w20><div text-center>%</div></th>
-            <th w20><div text-center>€</div></th>
+            <th><n-switch v-model:value="show" /></th>
+            <th w1><div text-center>%</div></th>
+            <th w1><div text-center>€</div></th>
+            <th v-if="show" w1><div text-center>€</div></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>DAY</td>
             <td text-center>
-              +{{ (value / 365).toFixed(2) }}
+              {{ (value / 365).toFixed(2) }}
             </td>
             <td text-center>
-              +{{ (amount * value / 100 / 365).toFixed(2) }}
+              {{ (amount * value / 100 / 365).toFixed(2) }}
+            </td>
+            <td v-if="show" text-center>
+              {{ (amount + amount * value / 100/365).toFixed(0) }}
             </td>
           </tr>
           <tr>
             <td>WEEK</td>
             <td text-center>
-              +{{ (value / 52).toFixed(2) }}
+              {{ (value / 52).toFixed(2) }}
             </td>
             <td text-center>
-              +{{ (amount * value / 100 / 52).toFixed(2) }}
+              {{ (amount * value / 100 / 52).toFixed(2) }}
+            </td>
+            <td v-if="show" text-center>
+              {{ (amount + amount * value / 100/52).toFixed(0) }}
             </td>
           </tr>
           <tr>
             <td>MONTH</td>
             <td text-center>
-              +{{ (value / 12).toFixed(2) }}
+              {{ (value / 12).toFixed(2) }}
             </td>
             <td text-center>
-              +{{ (amount * value / 100 / 12).toFixed(2) }}
+              {{ (amount * value / 100 / 12).toFixed(2) }}
+            </td>
+            <td v-if="show" text-center>
+              {{ (amount + amount * value / 100/12).toFixed(0) }}
             </td>
           </tr>
           <tr>
             <td>3 MONTHS</td>
             <td text-center>
-              +{{ (value / 4).toFixed(2) }}
+              {{ (value / 4).toFixed(2) }}
             </td>
             <td text-center>
-              +{{ (amount * value / 100 / 4).toFixed(2) }}
+              {{ (amount * value / 100 / 4).toFixed(2) }}
+            </td>
+            <td v-if="show" text-center>
+              {{ (amount + amount * value / 100/4).toFixed(0) }}
             </td>
           </tr>
           <tr>
             <td>YEAR</td>
             <td text-center>
-              +{{ value.toFixed(2) }}
+              {{ value.toFixed(2) }}
             </td>
             <td text-center>
-              +{{ (amount * value / 100).toFixed(2) }}
+              {{ (amount * value / 100).toFixed(2) }}
+            </td>
+            <td v-if="show" text-center>
+              {{ (amount + amount * value / 100).toFixed(0) }}
             </td>
           </tr>
         </tbody>
@@ -152,11 +172,12 @@ const percents: Record<Coin, Record<Card, Record<Period, number>>> = {
   },
 }
 
-const amount = ref<number>(5000)
+const amount = ref<number>(0)
 const coin = ref<Coin>('USDC')
 const card = ref<Card>('BLUE-RED')
 const period = ref<Period>('3 MONTHS')
 
+const show = ref(false)
 const value = computed(() => percents[coin.value][card.value][period.value])
 
 const numberAnimationInstRef = ref<NumberAnimationInst | null>(null)
