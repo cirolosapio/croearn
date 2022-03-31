@@ -1,6 +1,6 @@
 <template>
   <div p2 h-full flex flex-col>
-    <img src="cards/all.png" alt="" />
+    <img src="/cards/all.png" alt="" />
 
     <n-input-number v-model:value="amount" placeholder="Importo" />
 
