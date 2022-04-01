@@ -2,9 +2,11 @@
   <div p2 h-full flex flex-col>
     <img src="/cards/all.png" alt="" />
 
-    <n-input-number v-model:value="amount" :step="500" placeholder="AMOUNT">
-      <template #prefix>€</template>
-    </n-input-number>
+    <div flex justify-center>
+      <n-input-number v-model:value="amount" class="w50%" :step="500" placeholder="AMOUNT">
+        <template #prefix>€</template>
+      </n-input-number>
+    </div>
 
     <n-divider>CARD</n-divider>
     <n-radio-group v-model:value="card" flex justify-around name="card">
