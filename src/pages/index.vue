@@ -16,7 +16,7 @@
 
     <n-divider>TERM</n-divider>
     <n-radio-group v-model:value="term" flex justify-around name="term">
-      <n-radio v-for="p in terms" :key="p" :value="p">{{ p }}</n-radio>
+      <n-radio v-for="p in terms" :key="p" :disabled="compound && p === 'FLEXIBLE'" :value="p">{{ p }}</n-radio>
     </n-radio-group>
 
     <n-divider>
@@ -24,7 +24,7 @@
       <n-number-animation ref="numberAnimationInstRef" :duration="3000" :precision="2" :from="from" :to="to" />%
     </n-divider>
 
-    <div flex justify-evenly items-center space-x-2>
+    <div flex justify-evenly items-center space-x-2 mb2>
       <div>
         <n-switch v-model:value="mode" checked-value="slider" unchecked-value="input">
           <template #checked-icon><div i-uil-slider-h /></template>
@@ -32,14 +32,14 @@
         </n-switch>
       </div>
 
-      <n-slider v-if="mode === 'slider'" v-model:value="amount" my3 :min="0" :max="10000" :step="500" />
-      <n-input-number v-else v-model:value="amount" class="w50%" my2 :step="1000" placeholder="AMOUNT">
+      <n-slider v-if="mode === 'slider'" v-model:value="amount" class="w50%" my2 :min="0" :max="10000" :step="500" />
+      <n-input-number v-else v-model:value="amount" class="w50%" :step="1000" placeholder="AMOUNT">
         <template #prefix>€</template>
       </n-input-number>
 
       <n-tooltip placement="top-end">
         <template #trigger>
-          <n-switch v-model:value="compound" disabled />
+          <n-switch v-model:value="compound" :disabled="term === 'FLEXIBLE'" />
         </template>
         Compound
       </n-tooltip>
@@ -59,14 +59,24 @@
           <th w1><div text-center>%</div></th>
           <th w1><div text-center>€</div></th>
           <th v-if="show" w1><div text-center>€</div></th>
+          <th v-if="compound" w1><div text-center>+/-</div></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="row in rows" :key="row.label">
           <td>{{ row.label }}</td>
-          <td text-center>{{ row.percent }}</td>
-          <td text-center><div v-if="row.earn" text-teal>+{{ row.earn }}</div></td>
+          <td text-right>{{ row.percent }}</td>
+          <td text-right>
+            <div v-if="row.earn" text-teal>
+              +<n-number-animation ref="numberAnimationInstRef" :duration="1000" :precision="2" :to="row.earn" />
+            </div>
+          </td>
           <td v-if="show" text-right>{{ row.total }}</td>
+          <td v-if="compound" text-right>
+            <div v-if="getCompound(row.dot)" text-teal>
+              +<n-number-animation ref="numberAnimationInstRef" :duration="1000" :precision="2" :to="getCompound(row.dot)" />
+            </div>
+          </td>
         </tr>
       </tbody>
     </n-table>
@@ -184,11 +194,20 @@ const format = computed(() => (v: number) => {
   return v.toFixed(0)
 })
 
+const recurrency = computed(() => term.value === '3 MONTHS' ? 3 : 1)
+const earn = computed(() => {
+  let tot = amount.value
+  for (let i = 0; i < 12 / recurrency.value; i++) tot += tot * pa.value / 1200 * recurrency.value
+  return tot
+})
+
 const rows = computed(() => Object.entries(periods).map(([label, dot]) => ({
   label,
   dot,
   percent: format.value(pa.value / dot),
-  earn: format.value(amount.value * pa.value / 100 / dot),
+  earn: amount.value * pa.value / 100 / dot,
   total: format.value(amount.value + amount.value * pa.value / 100 / dot),
 })))
+
+const getCompound = computed(() => (dot: number) => (earn.value - amount.value - rows.value.at(-1).earn) / dot)
 </script>
