@@ -58,25 +58,25 @@
           </th>
           <th w1><div text-center>%</div></th>
           <th w1><div text-center>€</div></th>
-          <th v-if="show" w1><div text-center>€</div></th>
           <th v-if="compound" w1><div text-center>+/-</div></th>
+          <th v-if="show" w1><div text-center>€</div></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="row in rows" :key="row.label">
           <td>{{ row.label }}</td>
-          <td text-right>{{ row.percent }}</td>
+          <td text-right>{{ format(row.percent) }}</td>
           <td text-right>
             <div v-if="row.earn" text-teal>
               +<n-number-animation ref="numberAnimationInstRef" :duration="1000" :precision="2" :to="row.earn" />
             </div>
           </td>
-          <td v-if="show" text-right>{{ row.total }}</td>
           <td v-if="compound" text-right>
             <div v-if="getCompound(row.dot)" text-teal>
               +<n-number-animation ref="numberAnimationInstRef" :duration="1000" :precision="2" :to="getCompound(row.dot)" />
             </div>
           </td>
+          <td v-if="show" text-right>{{ format(row.total + (compound ? getCompound(row.dot) : 0)) }}</td>
         </tr>
       </tbody>
     </n-table>
@@ -204,9 +204,9 @@ const earn = computed(() => {
 const rows = computed(() => Object.entries(periods).map(([label, dot]) => ({
   label,
   dot,
-  percent: format.value(pa.value / dot),
+  percent: pa.value / dot,
   earn: amount.value * pa.value / 100 / dot,
-  total: format.value(amount.value + amount.value * pa.value / 100 / dot),
+  total: amount.value + amount.value * pa.value / 100 / dot,
 })))
 
 const getCompound = computed(() => (dot: number) => (earn.value - amount.value - rows.value.at(-1).earn) / dot)
