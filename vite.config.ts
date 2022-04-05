@@ -56,8 +56,8 @@ export default defineConfig({
         // devOptions: {
         //   enabled: true,
         // },
-        name: 'CROEARN',
-        short_name: 'CROEARN',
+        name: 'CROEarn',
+        short_name: 'CROEarn',
         theme_color: '#061121',
         background_color: '#061121',
         lang: 'it',
