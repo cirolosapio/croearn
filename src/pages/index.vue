@@ -1,6 +1,6 @@
 <template>
   <div p2 h-full flex flex-col>
-    <img src="/cards/all.png" alt="" />
+    <img src="/cards/all.png" />
 
     <n-divider>CARD</n-divider>
     <n-radio-group v-model:value="card" flex justify-around name="card">
@@ -10,7 +10,7 @@
     <n-divider>COIN</n-divider>
     <div overflow-x-auto pb3 px3>
       <div flex space-x-2>
-        <img v-for="c1 in coins" :key="c1" transition duration-300 :class="c1 === coin ? 'scale-100': 'scale-50'" style="height: 50px" :src="`/coins/${c1.toLowerCase()}.png`" @click="coin = c1" />
+        <img v-for="c1 in coins" :key="c1" transition duration-300 :class="c1 === coin ? 'scale-100' : 'scale-50'" style="height: 50px" :src="`/coins/${c1.toLowerCase()}.png`" @click="coin = c1" />
       </div>
     </div>
 
@@ -87,69 +87,18 @@
 import type { Mode } from 'node:fs'
 import type { NumberAnimationInst } from 'naive-ui'
 import type { Card, Coin, Term } from '~/types'
+import { percents } from '~/assets'
 
-const coins: Coin[] = ['USDC', 'USDT', 'BTC', 'ETH', 'DOT', 'MATIC', 'AVAX', 'LUNA', 'EGLD', 'ATOM', 'SOL', 'ONE', 'FLOW']
+const coins: Coin[] = [
+  'USDC', 'USDT', 'CRO', 'BTC', 'ETH', 'DOT', 'MATIC', 'AVAX', 'LUNA', 'EGLD', 'ATOM', 'SOL', 'ONE', 'FLOW',
+  'TUSD', 'DAI', 'PAXG', 'GAS', 'STRAX', 'LTC', 'XRP', 'BNB', 'BAT', 'LINK', 'MKR', 'VET', 'ICX', 'ADA', 'ENJ',
+  'ALGO', 'COMP', 'MANA', 'DOGE', 'SHIB', 'EOS', 'XLM', 'XTZ', 'OMG', 'UNI', 'BNT', 'BIFI',
+
+  // no image
+  // 'TONIC', 'ONG', CELR, 'KNC', 'BHC', 'PAX', 'TAXG', 'TGBP', 'TCAD', 'TAUD'
+]
 const cards: Card[] = ['BLUE-RED', 'GREEN-ABOVE']
 const terms: Term[] = ['FLEXIBLE', '1 MONTH', '3 MONTHS']
-
-const percents: Record<Coin, Record<Card, Record<Term, number>>> = {
-  CRO: {
-    'BLUE-RED': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
-  },
-  LUNA: {
-    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 2.5, '3 MONTHS': 4 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 3.5, '3 MONTHS': 5 },
-  },
-  EGLD: {
-    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 2.5, '3 MONTHS': 4 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 3.5, '3 MONTHS': 5 },
-  },
-  ATOM: {
-    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 2.5, '3 MONTHS': 4 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 3.5, '3 MONTHS': 5 },
-  },
-  SOL: {
-    'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 3 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 1.5, '1 MONTH': 3, '3 MONTHS': 4.5 },
-  },
-  AVAX: {
-    'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
-  },
-  USDC: {
-    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 3, '3 MONTHS': 6 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 8 },
-  },
-  USDT: {
-    'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 3, '3 MONTHS': 6 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 8 },
-  },
-  BTC: {
-    'BLUE-RED': { 'FLEXIBLE': 0.5, '1 MONTH': 1.5, '3 MONTHS': 3 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
-  },
-  ETH: {
-    'BLUE-RED': { 'FLEXIBLE': 0.5, '1 MONTH': 1.5, '3 MONTHS': 3 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
-  },
-  DOT: {
-    'BLUE-RED': { 'FLEXIBLE': 6, '1 MONTH': 8, '3 MONTHS': 10 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 8, '1 MONTH': 10, '3 MONTHS': 12.5 },
-  },
-  MATIC: {
-    'BLUE-RED': { 'FLEXIBLE': 6, '1 MONTH': 8, '3 MONTHS': 10 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 8, '1 MONTH': 10, '3 MONTHS': 12 },
-  },
-  ONE: {
-    'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
-  },
-  FLOW: {
-    'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
-    'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
-  },
-}
 
 const mode = ref<Mode>('slider')
 const amount = ref<number>(0)

@@ -1,0 +1,103 @@
+import type { Card, Coin, Term } from '~/types'
+
+const CRO =  {
+  'BLUE-RED': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
+}
+
+const STABLECOIN = {
+  'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 3, '3 MONTHS': 6 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 8 },
+}
+
+const ONE_FLOW = {
+  'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
+}
+
+const ATOM_EGLD_LUNA = {
+  'BLUE-RED': { 'FLEXIBLE': 1.5, '1 MONTH': 2.5, '3 MONTHS': 4 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 3.5, '3 MONTHS': 5 },
+}
+
+const BTC_ETH= {
+  'BLUE-RED': { 'FLEXIBLE': 0.5, '1 MONTH': 1.5, '3 MONTHS': 3 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
+}
+
+const DOT_MATIC = {
+  'BLUE-RED': { 'FLEXIBLE': 5, '1 MONTH': 8, '3 MONTHS': 11 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 6, '1 MONTH': 10, '3 MONTHS': 12.5 },
+}
+
+const AVAX = {
+  'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 4 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 2, '1 MONTH': 4, '3 MONTHS': 6 },
+}
+
+const SOL = {
+  'BLUE-RED': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 3 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 1.5, '1 MONTH': 3, '3 MONTHS': 4.5 },
+}
+
+const OTHER = {
+  'BLUE-RED': { 'FLEXIBLE':0.5, '1 MONTH': 1, '3 MONTHS': 2 },
+  'GREEN-ABOVE': { 'FLEXIBLE': 1, '1 MONTH': 2, '3 MONTHS': 3 },
+}
+
+export const percents: Record<Coin, Record<Card, Record<Term, number>>> = {
+  CRO,
+  LUNA: ATOM_EGLD_LUNA,
+  EGLD: ATOM_EGLD_LUNA,
+  ATOM: ATOM_EGLD_LUNA,
+  SOL,
+  AVAX,
+  USDC: STABLECOIN,
+  USDT: STABLECOIN,
+  TAUD: STABLECOIN,
+  TUSD: STABLECOIN,
+  TCAD: STABLECOIN,
+  TGBP: STABLECOIN,
+  TAXG: STABLECOIN,
+  DAI: STABLECOIN,
+  PAX: STABLECOIN,
+  PAXG: STABLECOIN,
+  BTC: BTC_ETH,
+  ETH: BTC_ETH,
+  DOT: DOT_MATIC,
+  MATIC: DOT_MATIC,
+  ONE:ONE_FLOW,
+  FLOW:ONE_FLOW,
+  
+  GAS:OTHER,
+  STRAX:OTHER,
+  
+  LTC:OTHER,
+  XRP:OTHER,
+  BNB:OTHER,
+  BAT:OTHER,
+  LINK:OTHER,
+  MKR:OTHER,
+  BHC: OTHER,
+  VET:OTHER,
+  ICX:OTHER,
+  ADA:OTHER,
+  ENJ:OTHER,
+  ALGO: OTHER,
+  KNC: OTHER,
+  COMP: OTHER,
+  MANA: OTHER,
+  DOGE: OTHER,
+  SHIB: OTHER,
+  EOS: OTHER,
+  XLM: OTHER,
+  XTZ: OTHER,
+  CELR: OTHER,
+  OMG: OTHER,
+  UNI: OTHER,
+  ONG: OTHER,
+  BNT:OTHER,
+  BIFI: OTHER,
+  TONIC: OTHER,
+  
+}
